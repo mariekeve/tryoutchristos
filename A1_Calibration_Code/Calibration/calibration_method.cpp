@@ -206,6 +206,13 @@ bool Calibration::calibration(
 
     // TODO: construct the P matrix (so P * m = 0).
 
+
+    n = size
+    P = Matrix(n, 3, 0.0);
+    Matrix
+    std::cout(P);
+
+
     // TODO: solve for M (the whole projection matrix, i.e., M = K * [R, t]) using SVD decomposition.
     //   Optional: you can check if your M is correct by applying M on the 3D points. If correct, the projected point
     //             should be very close to your input images points.
