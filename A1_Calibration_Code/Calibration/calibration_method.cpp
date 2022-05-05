@@ -24,6 +24,7 @@
 
 #include "calibration.h"
 #include "matrix_algo.h"
+#include "fstream"
 
 
 using namespace easy3d;
@@ -35,6 +36,25 @@ using namespace easy3d;
  *       You may define a few functions for some sub-tasks.
  * @return True on success, otherwise false. On success, the camera parameters are returned by
  */
+
+std::string file_in = "test_data_1(6_points)-test1.txt";
+
+//std::string str;
+//while (std::getline(file_in, str)){
+//std::cout << str << "\n";
+/*
+ifstream infile;
+int x;
+int y;
+int z;
+
+infile.open("test_data_1(6_points)-test1.txt";)
+*/
+
+
+
+
+
 bool Calibration::calibration(
         const std::vector<Vector3D>& points_3d, /// input: An array of 3D points.
         const std::vector<Vector2D>& points_2d, /// input: An array of 2D image points.
@@ -206,12 +226,12 @@ bool Calibration::calibration(
 
     // TODO: construct the P matrix (so P * m = 0).
 
-
+/*
     n = size
     P = Matrix(n, 3, 0.0);
     Matrix
     std::cout(P);
-
+*/
 
     // TODO: solve for M (the whole projection matrix, i.e., M = K * [R, t]) using SVD decomposition.
     //   Optional: you can check if your M is correct by applying M on the 3D points. If correct, the projected point

@@ -825,8 +825,7 @@ namespace easy3d {
     inline std::ostream &operator<<(std::ostream &out, const Matrix &A) {
         int rows = A.rows();
         int cols = A.cols();
-
-        out << "size: " << rows << " by " << cols << "\n";
+        out <<  rows <<  " " << cols << "\n";
         for (int i = 0; i < rows; ++i) {
             for (int j = 0; j < cols; ++j) {
                 if (std::abs(A[i][j]) < 1e-6)
