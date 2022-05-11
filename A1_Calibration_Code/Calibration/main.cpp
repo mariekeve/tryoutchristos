@@ -356,7 +356,11 @@ int main(int argc, char** argv) {
         std::cout << "u0 "<< u0 << "\n" << std::endl;
         std::cout << "v0 "<< v0 << "\n" << std::endl;
 
-        double costheta = -((dot(cross(a1,a3),(cross(a2,a3))))/(dot(((cross(a1,a3)).norm()),((cross(a2,a3)).norm()))));
+        std::cout << "checkp1 "<< ((cross(a1,a3)).norm()) << "\n" << std::endl;
+        std::cout << "checkp2 "<< ((cross(a2,a3)).norm()) << "\n" << std::endl;
+        std::cout << "check "<< ((((cross(a1,a3)).norm())*((cross(a2,a3)).norm()))) << "\n" << std::endl;
+
+        double costheta = -((dot(cross(a1,a3),(cross(a2,a3))))/(((cross(a1,a3)).norm())*((cross(a2,a3)).norm())));
         double theta = acos(costheta);
         double sintheta = sin(theta);
         alpha = pow(ro,2)*norm(cross(a1,a3))*sintheta;
@@ -366,15 +370,15 @@ int main(int argc, char** argv) {
         std::cout << "sintheta "<< sintheta << "\n" << std::endl;
 
         Matrix33 K = (3,3,0.0);
-        K[1][1]= alpha;
-        K[1][2]= -alpha*(costheta*sintheta);
-        K[1][3]= u0;
+        K[0][0]= alpha;
+        K[0][1]= -alpha*(costheta*sintheta);
+        K[0][2]= u0;
+        K[1][0]= 0;
+        K[1][1]= beta/sintheta;
+        K[1][2]= v0;
+        K[2][0]= 0;
         K[2][1]= 0;
-        K[2][2]= beta/sintheta;
-        K[2][3]= v0;
-        K[3][1]= 0;
-        K[3][2]= 0;
-        K[3][3]= 1;
+        K[2][2]= 1;
 
 
         std::cout<<"K matrix"<<K<<std::endl;
@@ -386,18 +390,22 @@ int main(int argc, char** argv) {
         std::cout<<"beta"<<beta<<std::endl;
 
         // TODO: extract extrinsic parameters from M.
-/*
 
-        Matrix r1 = (cross(a2,a3))/(norm(cross(a2,a1)));
-        Vector2D r3 = ro*(a3);
-        Vector2D r2 = cross(r3,r1);
+
+        Vector3D r1 = (cross(a2,a3))/(norm(cross(a2,a1)));
+        std::cout<<"r1 "<<r1<<std::endl;
+        Vector3D r3 = ro*(a3);
+        Vector3D r2 = cross(r3,r1);
+        std::cout<<"r2 "<<r2<<std::endl;
+        std::cout<<"r3 "<<r3<<std::endl;
+        
         Matrix R = Matrix(transpose(r1),transpose(r2),transpose(r3));
 
 
 
-        Vector3D transl = ro* mult(inverse(K),b);
+        //Vector3D transl = ro* mult(inverse(K),b);
 
-*/
+
         //Calibration viewer("Calibration", model_file);
 
         // Run the viewer
