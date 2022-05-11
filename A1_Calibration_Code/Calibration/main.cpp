@@ -276,11 +276,114 @@ int main(int argc, char** argv) {
             M[i] = V[i][n-1];
         }
 
+        std::cout<<"U matrix"<<U<<std::endl;
+        std::cout<<"S matrix"<<S<<std::endl;
+        std::cout<<"V matrix"<<V<<std::endl;
+
+
+
+        std::ofstream stream_out1;
+        std::string fileOut1 = "c:\\tmp\\mmatrix.dat";
+        stream_out1.open(fileOut1);
+        if (stream_out1.is_open()) {
+            stream_out1 << M << std::endl;
+            stream_out1.close();
+        }
+        std::ofstream stream_out2;
+        std::string fileOut2 = "c:\\tmp\\umatrix.dat";
+        stream_out2.open(fileOut2);
+        if (stream_out2.is_open()) {
+            stream_out2 << U << std::endl;
+            stream_out2.close();
+        }
+        std::ofstream stream_out3;
+        std::string fileOut1 = "c:\\tmp\\smatrix.dat";
+        stream_out1.open(fileOut1);
+        if (stream_out1.is_open()) {
+            stream_out1 << S << std::endl;
+            stream_out1.close();
+        }
+        std::ofstream stream_out1;
+        std::string fileOut1 = "c:\\tmp\\vmatrix.dat";
+        stream_out1.open(fileOut1);
+        if (stream_out1.is_open()) {
+            stream_out1 << V << std::endl;
+            stream_out1.close();
+        }
+
+        Matrix33 MM = (3,3,0.0);
+        MM[0][0]=M[0];
+        MM[0][1]=M[1];
+        MM[0][2]=M[2];
+        MM[1][0]=M[3];
+        MM[1][1]=M[4];
+        MM[1][2]=M[5];
+        MM[2][0]=M[6];
+        MM[2][1]=M[7];
+        MM[2][2]=M[8];
+
+        std::cout<<"MM matrix"<<MM<<std::endl;
+
         Vector N = Vector(m,5.0);
         N = mult(A,M);
-        std::cout << N << "\n" << std::endl;
+        std::cout << "null vector"<< N << "\n" << std::endl;
+
+        // TODO: extract intrinsic parameters from M.
+
+        Vector a1 = Vector(MM[0][0], MM[0][1]);
+        Vector a2 = Vector(MM[1][0], MM[1][1]);
+        Vector a3 = Vector(MM[2][0], MM[2][1]);
+        Vector b = Vector3D(MM[0][2], MM[1][2], MM[2][2]);
+        std::cout << "a1"<< a1 << "\n" << std::endl;
 
 
+        double ro = 0.0;
+        double u0 = 0.0;
+        double v0 = 0.0;
+        double alpha = 0.0;
+        double beta = 0.0;
+        ro = 1.0/(a3.norm());
+        u0 = pow(ro,2)*dot(a1,a3);
+        v0 = pow(ro,2)*dot(a2,a3);
+        double costheta = -(dot(cross(a1,a3),(cross(a2,a3)))/(dot((norm(cross(a1,a3))),norm(cross(a2,a3)))));
+        double theta = acos(costheta);
+        double sintheta = sin(theta);
+        alpha = pow(ro,2)*norm(cross(a1,a3))*sintheta;
+        beta = pow(ro,2)*norm(cross(a1,a3))*sintheta;
+
+        Matrix33 K = (3,3,0.0);
+        K[1][1]= alpha;
+        K[1][2]= -alpha*(costheta*sintheta);
+        K[1][3]= u0;
+        K[2][1]= 0;
+        K[2][2]= beta/sintheta;
+        K[2][3]= v0;
+        K[3][1]= 0;
+        K[3][2]= 0;
+        K[3][3]= 1;
+
+
+        std::cout<<"K matrix"<<K<<std::endl;
+        std::cout<<"ro"<<ro<<std::endl;
+        std::cout<<"u0"<<u0<<std::endl;
+        std::cout<<"v0"<<v0<<std::endl;
+        std::cout<<"costheta"<<costheta<<std::endl;
+        std::cout<<"alpha"<<alpha<<std::endl;
+        std::cout<<"beta"<<beta<<std::endl;
+
+        // TODO: extract extrinsic parameters from M.
+/*
+
+        Matrix r1 = (cross(a2,a3))/(norm(cross(a2,a1)));
+        Vector2D r3 = ro*(a3);
+        Vector2D r2 = cross(r3,r1);
+        Matrix R = Matrix(transpose(r1),transpose(r2),transpose(r3));
+
+
+
+        Vector3D transl = ro* mult(inverse(K),b);
+
+*/
         //Calibration viewer("Calibration", model_file);
 
         // Run the viewer
