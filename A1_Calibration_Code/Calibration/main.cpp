@@ -275,7 +275,7 @@ int main(int argc, char** argv) {
         for (int i = 0; i < n; i++) {
             M[i] = V[i][n-1];
         }
-
+        std::cout<<"M vector "<<M<<std::endl;
         std::cout<<"U matrix"<<U<<std::endl;
         std::cout<<"S matrix"<<S<<std::endl;
         std::cout<<"V matrix"<<V<<std::endl;
@@ -311,7 +311,7 @@ int main(int argc, char** argv) {
             stream_out4.close();
         }
 
-        Matrix33 MM = (3,3,0.0);
+        Matrix MM = Matrix(4,3,0.0);
         MM[0][0]=M[0];
         MM[0][1]=M[1];
         MM[0][2]=M[2];
@@ -321,6 +321,9 @@ int main(int argc, char** argv) {
         MM[2][0]=M[6];
         MM[2][1]=M[7];
         MM[2][2]=M[8];
+        MM[3][0]=M[9];
+        MM[3][1]=M[10];
+        MM[3][2]=M[11];
 
         std::cout<<"MM matrix"<<MM<<std::endl;
 
@@ -330,11 +333,15 @@ int main(int argc, char** argv) {
 
         // TODO: extract intrinsic parameters from M.
 
-        Vector a1 = Vector(MM[0][0], MM[0][1]);
-        Vector a2 = Vector(MM[1][0], MM[1][1]);
-        Vector a3 = Vector(MM[2][0], MM[2][1]);
-        Vector b = Vector3D(MM[0][2], MM[1][2], MM[2][2]);
-        std::cout << "a1"<< a1 << "\n" << std::endl;
+        Vector a1 = Vector2D(MM[0][0], MM[0][1]);
+        Vector a2 = Vector2D(MM[1][0], MM[1][1]);
+        Vector a3 = Vector2D(MM[2][0], MM[2][1]);
+        Vector a4 = Vector2D(MM[3][0], MM[3][1]);
+        Vector b = Vector4D(MM[0][2], MM[1][2], MM[2][2], MM[3][2]);
+        std::cout << "a1"<< b << "\n" << std::endl;
+        std::cout << "a2"<< b << "\n" << std::endl;
+        std::cout << "a3"<< b << "\n" << std::endl;
+        std::cout << "b"<< b << "\n" << std::endl;
 
 
         double ro = 0.0;
