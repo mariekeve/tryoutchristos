@@ -297,18 +297,18 @@ int main(int argc, char** argv) {
             stream_out2.close();
         }
         std::ofstream stream_out3;
-        std::string fileOut1 = "c:\\tmp\\smatrix.dat";
-        stream_out1.open(fileOut1);
-        if (stream_out1.is_open()) {
-            stream_out1 << S << std::endl;
-            stream_out1.close();
+        std::string fileOut3 = "c:\\tmp\\smatrix.dat";
+        stream_out3.open(fileOut3);
+        if (stream_out3.is_open()) {
+            stream_out3 << S << std::endl;
+            stream_out3.close();
         }
-        std::ofstream stream_out1;
-        std::string fileOut1 = "c:\\tmp\\vmatrix.dat";
-        stream_out1.open(fileOut1);
-        if (stream_out1.is_open()) {
-            stream_out1 << V << std::endl;
-            stream_out1.close();
+        std::ofstream stream_out4;
+        std::string fileOut4 = "c:\\tmp\\vmatrix.dat";
+        stream_out4.open(fileOut4);
+        if (stream_out4.is_open()) {
+            stream_out4 << V << std::endl;
+            stream_out4.close();
         }
 
         Matrix33 MM = (3,3,0.0);
