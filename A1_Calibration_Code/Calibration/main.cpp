@@ -398,12 +398,17 @@ int main(int argc, char** argv) {
         Vector3D r2 = cross(r3,r1);
         std::cout<<"r2 "<<r2<<std::endl;
         std::cout<<"r3 "<<r3<<std::endl;
-        
-        Matrix R = Matrix(transpose(r1),transpose(r2),transpose(r3));
+        //Vector r4 = (9,)
+        Matrix R(3,3);
+        R.set_row(0,{r1[0], r1[1], r1[2]});
+        R.set_row(1,{r2[0], r2[1], r2[2]});
+        R.set_row(2,{r3[0], r3[1], r3[2]});
+        std::cout<<"checkkk "<<R<<std::endl;
 
 
 
-        //Vector3D transl = ro* mult(inverse(K),b);
+        Vector3D transl = ro* mult(inverse(K),b);
+        std::cout<<"checkkktr "<<transl<<std::endl;
 
 
         //Calibration viewer("Calibration", model_file);
